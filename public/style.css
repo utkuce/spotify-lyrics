@@ -1,0 +1,21 @@
+#login, #loggedin {
+  display: none;
+}
+
+.spotify-login {
+    background-color: #1DB954;
+    border: none;
+}
+
+#current-song { 
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 800px;
+}
