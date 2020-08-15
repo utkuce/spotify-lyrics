@@ -111,3 +111,9 @@ function refreshTokens() {
     loggedInView();
   });
 }
+
+document.onkeyup = function(e) {
+  if (e.which == 82) { // refresh when r key is pressed
+    loggedInView();
+  } 
+};
