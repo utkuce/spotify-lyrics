@@ -8,8 +8,7 @@ Display lyrics for the currently playing song on the connected spotify account
 - Create a new project on https://console.firebase.google.com/
 - Install firebase tools with `npm install -g firebase-tools`
 - Login with `firebase login`
-- Connect the existing firebase project you have created to the local project with `firebase init`, then 
-choose `Functions` and `Hosting` when asked, use the default values for the rest
+- Replace the default project id with yours in `.firebaserc`
 
 ### Configure
 - Creat an application on [Spotify for Developers Dashboard](https://beta.developer.spotify.com/dashboard) 
