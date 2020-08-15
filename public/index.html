@@ -10,8 +10,8 @@
 </head>
 
 <body>
-  
-  <div class="container">
+
+  <div class="container pull-left">
     <div id="login">
       <h1>Please login with your Spotify account to continue</h1>
       <a href="/login" class="btn btn-primary spotify-login">
@@ -99,8 +99,15 @@
             currentSongPlaceholder.innerHTML = currentSongTemplate(response);
             setLyrics(response);
           } else {
+
+            document.getElementById("lyrics").innerHTML = "";
             currentSongPlaceholder.innerHTML = 
-              '<h1>Spotify is currently not playing a song <button onclick=loggedInView() class="btn btn-default"><i class="fas fa-sync"></i></button></h1>'
+              '<h1>' + 
+                'Spotify is currently not playing a song ' + 
+                '<button onclick=loggedInView() class="btn btn-default">' + 
+                  '<i class="fas fa-sync"></i>'+
+                '</button>' + 
+              '</h1>'
           }
         }
       });
@@ -109,7 +116,7 @@
     function setLyrics(spotifyPlayer) {
 
       var lyricsDiv = document.getElementById("lyrics");
-      lyricsDiv.innerHTML = 'Loading lyrics...';
+      lyricsDiv.innerHTML = '<h3>Loading lyrics...</h3>';
 
       var search = spotifyPlayer.item.name + " - " + spotifyPlayer.item.artists[0].name;
 
