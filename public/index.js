@@ -58,7 +58,7 @@ function loggedInView() {
         currentSongPlaceholder.innerHTML = 
           '<h1>' + 
             'Spotify is currently not playing a song ' + 
-            '<button onclick=loggedInView() class="btn btn-default">' + 
+            '<button onclick=loggedInView() class="btn btn-default" title="Refresh (r)">' + 
               '<i class="fas fa-sync"></i>'+
             '</button>' + 
           '</h1>'
