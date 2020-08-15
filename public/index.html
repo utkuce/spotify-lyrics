@@ -118,7 +118,9 @@
       var lyricsDiv = document.getElementById("lyrics");
       lyricsDiv.innerHTML = '<h3>Loading lyrics...</h3>';
 
-      var search = spotifyPlayer.item.name + " - " + spotifyPlayer.item.artists[0].name;
+      var songName = spotifyPlayer.item.name.split(" - ")[0];
+      var artistName = spotifyPlayer.item.artists[0].name;
+      var search = songName + " - " + artistName
 
       $.ajax({
         url: 'get_lyrics_embed',
