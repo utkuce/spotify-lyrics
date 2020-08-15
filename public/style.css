@@ -19,3 +19,7 @@
   white-space: nowrap;
   width: 800px;
 }
+
+#lyrics {
+    padding-top: 20px;
+}
