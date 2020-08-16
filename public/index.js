@@ -41,19 +41,40 @@ function loggedInView() {
   $('#loggedin').show();
 
   console.log("Access token:", access_token, "Refresh token:", refresh_token)
+  getCurrentSong();
+  
+  var interval = setInterval(function(){ getCurrentSong(); }, 5000);
+  document.addEventListener("visibilitychange", function() {
+    getCurrentSong();
+    if (document.visibilityState === 'visible') {
+      interval = setInterval(function(){ getCurrentSong(); }, 5000);
+    } else {
+      clearInterval(interval);
+    }
+  });
+}
+
+var wasPlaying = false;
+function getCurrentSong() {
 
   $.ajax({
     url: 'https://api.spotify.com/v1/me/player',
-    headers: {
-      'Authorization': 'Bearer ' + access_token
-    },
+    headers: { 'Authorization': 'Bearer ' + access_token },
     success: function (response) {
 
-      if (response && response.is_playing) {
+      if (!response) return;
+      //console.log(response);
+
+      if (response.is_playing) {
+
+        wasPlaying = true;
         currentSongPlaceholder.innerHTML = currentSongTemplate(response);
         setLyrics(response);
+
       } else {
 
+        if (wasPlaying) return;
+        
         document.getElementById("lyrics").innerHTML = "";
         currentSongPlaceholder.innerHTML = 
           '<h1>' + 
@@ -67,14 +88,17 @@ function loggedInView() {
   });
 }
 
+var lastSearch = "";
 function setLyrics(spotifyPlayer) {
-
-  var lyricsDiv = document.getElementById("lyrics");
-  lyricsDiv.innerHTML = '<h3>Loading lyrics...</h3>';
 
   var songName = spotifyPlayer.item.name.split(" - ")[0];
   var artistName = spotifyPlayer.item.artists[0].name;
-  var search = songName + " - " + artistName
+  var search = songName + " - " + artistName;
+
+  if (lastSearch === search) return;
+
+  var lyricsDiv = document.getElementById("lyrics");
+  lyricsDiv.innerHTML = '<h3>Loading lyrics...</h3>';
 
   $.ajax({
     url: 'get_lyrics_embed',
@@ -85,6 +109,8 @@ function setLyrics(spotifyPlayer) {
       postscribe('#lyrics', response);
     }
   });
+
+  lastSearch = search;
 }
 
     /**
