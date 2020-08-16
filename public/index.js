@@ -62,10 +62,9 @@ function getCurrentSong() {
     headers: { 'Authorization': 'Bearer ' + access_token },
     success: function (response) {
 
-      if (!response) return;
       //console.log(response);
 
-      if (response.is_playing) {
+      if (response && response.is_playing) {
 
         wasPlaying = true;
         currentSongPlaceholder.innerHTML = currentSongTemplate(response);
@@ -113,7 +112,7 @@ function setLyrics(spotifyPlayer) {
   lastSearch = search;
 }
 
-    /**
+/**
 * Obtains parameters from the hash of the URL
 * @return Object
 */
