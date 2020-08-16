@@ -32,6 +32,7 @@ if (localStorage["refresh_token"]) {
   }
 }
 
+var interval;
 function loggedInView() {
 
   window.location.hash = "loggedin";
@@ -43,10 +44,12 @@ function loggedInView() {
   console.log("Access token:", access_token, "Refresh token:", refresh_token)
   getCurrentSong();
   
-  var interval = setInterval(function(){ getCurrentSong(); }, 5000);
+  clearInterval(interval);
+  interval = setInterval(function(){ getCurrentSong(); }, 5000);
   document.addEventListener("visibilitychange", function() {
     getCurrentSong();
     if (document.visibilityState === 'visible') {
+      clearInterval(interval);
       interval = setInterval(function(){ getCurrentSong(); }, 5000);
     } else {
       clearInterval(interval);
@@ -83,7 +86,13 @@ function getCurrentSong() {
             '</button>' + 
           '</h1>'
       }
-    }
+    }, 
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      if (errorThrown === "Unauthorized") {
+
+        refreshTokens();
+      }
+  } 
   });
 }
 
@@ -98,6 +107,8 @@ function setLyrics(spotifyPlayer) {
 
   var lyricsDiv = document.getElementById("lyrics");
   lyricsDiv.innerHTML = '<h3>Loading lyrics...</h3>';
+
+  console.log("Getting lyrics for " + search);
 
   $.ajax({
     url: 'get_lyrics_embed',
@@ -127,6 +138,8 @@ function getHashParams() {
 }
 
 function refreshTokens() {
+
+  console.log("Refreshing tokens")
 
   $.ajax({
     url: '/refresh_token',
