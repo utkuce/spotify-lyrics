@@ -16,7 +16,7 @@ https://spotify-lyrics-b6d38.web.app/
 ### Configure
 - Creat an application on [Spotify for Developers Dashboard](https://beta.developer.spotify.com/dashboard) 
 and add http://localhost:5000/callback as a redirect uri in the app settings
-- Create an environment variables file `.env` in the `functions/` directory and fill the values
+- Create an environment variables file `.env.local` in the `functions/` directory and fill the values
 ```
 SPOTIFY_CLIENT_ID=
 SPOTIFY_CLIENT_SECRET=
@@ -28,6 +28,6 @@ GENIUS_ACCESS_TOKEN=
 
 ## Deploy
 
-- Replace the redirect uri in the `.env` file with `https://<your-project-id>.web.app`
+- Create an environment variables file `.env` in the `functions/` directory and copy the contents of `.env.local` except the redirect uri and replace it with `https://<your-project-id>.web.app`
 - Add `https://<your-project-id>.web.app/callback` as a redirect uri on the [Spotify for Developers Dashboard](https://beta.developer.spotify.com/dashboard)
 - `firebase deploy` (Note that google requires the project to be at least on the blaze plan to be able to deploy functions)
