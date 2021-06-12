@@ -3,7 +3,7 @@
 Display lyrics for the currently playing song on the connected spotify account
 
 ## Demo
-https://spotify-lyrics-b6d38.web.app/
+https://spotify-lyrics.pages.dev/
 
 ## Installation
 
