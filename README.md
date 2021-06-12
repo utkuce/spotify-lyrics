@@ -14,7 +14,7 @@ https://spotify-lyrics.pages.dev/
 
 ### Configure
 - Creat an application on [Spotify for Developers Dashboard](https://beta.developer.spotify.com/dashboard) 
-and add `https://<your-project-id>.<cloudflare-username>.workers.dev/callback` as a redirect uri in the app settings
+and add `https://<project-id>.<username>.workers.dev/callback` as a redirect uri in the app settings
 - Get the your application's client_id and client_secret from your spotify developer dashboard and set them for cloudflare using
 ```
 wrangler secret put SPOTIFY_CLIENT_ID <client_id>
@@ -25,7 +25,7 @@ wrangler secret put SPOTIFY_CLIENT_SECRET <client_secret>
 wrangler secret put GENIUS_ACCESS_TOKEN <access_token>
 ```
 
-- Set REDIRECT_URI in `cloudflare/index.js` to `https://<your-project-id>.<cloudflare-username>.workers.dev` 
+- Set REDIRECT_URI in `cloudflare/index.js` to `https://<project-id>.<username>.workers.dev` 
     - or `http://localhost:8787` for local testing
 
 - Set FRONTEND_URI in `cloudflare/index.js` to the static host of the public folder
