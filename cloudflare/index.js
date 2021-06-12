@@ -5,7 +5,7 @@ import * as querystring from 'querystring'
 const router = Router();
 
 const REDIRECT_URI = "https://spotify-lyrics.utkuce.workers.dev/callback";
-const FRONTEND_URI = "http://localhost:8080";
+const FRONTEND_URI = "https://spotify-lyrics.pages.dev/";
 
 router.get("/login", (req) => {
 
