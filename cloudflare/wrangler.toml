@@ -1,0 +1,7 @@
+name = "spotify-lyrics"
+type = "webpack"
+
+account_id = "eb96ca162821631fc582aded56767a94"
+workers_dev = true
+route = ""
+zone_id = ""

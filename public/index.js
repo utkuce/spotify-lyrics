@@ -4,8 +4,10 @@ var currentSongPlaceholder = document.getElementById('current-song');
 
 if (localStorage["refresh_token"]) {
 
+  console.log("found spotify refresh token");
   refresh_token = localStorage["refresh_token"];
-  refreshTokens();
+
+  refreshAccessToken();
 
 } else {
 
@@ -90,7 +92,7 @@ function getCurrentSong() {
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
       if (errorThrown === "Unauthorized") {
 
-        refreshTokens();
+        refreshAccessToken();
       }
   } 
   });
@@ -111,7 +113,7 @@ function setLyrics(spotifyPlayer) {
   console.log("Getting lyrics for " + search);
 
   $.ajax({
-    url: 'get_lyrics_embed',
+    url: 'https://spotify-lyrics.utkuce.workers.dev/get_lyrics_embed',
     data: { q: search },
     success: function (response) {
       if (lyricsDiv.hasChildNodes())
@@ -137,17 +139,21 @@ function getHashParams() {
   return hashParams;
 }
 
-function refreshTokens() {
+function refreshAccessToken() {
 
-  console.log("Refreshing tokens")
+  console.log("Refreshing access token with refresh token: " + refresh_token);
 
   $.ajax({
-    url: '/refresh_token',
-    data: {'refresh_token': refresh_token }
+    url: 'https://spotify-lyrics.utkuce.workers.dev/refresh_token',
+    data: {'refresh_token': refresh_token },
   }).done(function(data) {
+    console.log("refreshin access token is done");
     access_token = data.access_token;
+    console.log("Data: " + data);
     loggedInView();
-  });
+  }).fail(function (jqXHR, textStatus) {
+    console.log(textStatus);
+});;
 }
 
 document.onkeyup = function(e) {
